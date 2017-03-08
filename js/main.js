@@ -1807,10 +1807,17 @@ return declare( JBrowsePlugin,
         this.isScreenshot = false;
         console.log('ScreenShotPlugin starting');
 
+        //console.log(args);
+
+        //this.config.customURL = 'http://example.com/';
         this.config.apiKey = 'a-demo-key-with-low-quota-per-ip-address';
         // PhantomJS Username
-        if( args.config.apiKey !== undefined )
-            this.config.apiKey = args.config.apiKey;
+        if( args.apiKey !== undefined )
+            this.config.apiKey = args.apiKey;
+        if( args.customURL !== undefined ) {
+            this.config.customURL = args.customURL;
+            //console.log(this.config.customURL);
+        }
         var thisB = this;
         // other plugins
         browser.afterMilestone('initPlugins', function(){
@@ -1854,7 +1861,7 @@ return declare( JBrowsePlugin,
             var menuBar = browser.menuBar;
             function showScreenShotDialog(){
                 new ScreenShotDialog({
-                    requestUrl: thisB._getPhantomJSUrl(),
+                    requestUrl: thisB.config.customURL ? thisB.config.customURL : thisB._getPhantomJSUrl(),
                     browser: browser,
                     config: thisB.config
                 }).show();

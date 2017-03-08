@@ -25,7 +25,9 @@ Util = {
         // ?request={url:"http://www.highcharts.com/demo/pie-donut",renderType:"jpg",renderSettings:{zoomFactor:2,viewport:{width:100,height:500}}}
         // split parameters into pdf type and image type
         var outDict = {url: params.url, renderType: params.format.value};
+        var outDictGET = dojo.objectToQuery(outDict);
         var renderDict = {zoomFactor: params.zoom.value, quality: params.quality.value};
+        var renderDictGET = dojo.objectToQuery(renderDict);
         //var outDict = {url: params.url, renderType: params.format.value, renderSettings: {zoomFactor: params.zoom.value, viewport: {width:params.width.value, height: params.height.value}}};
         // check PDF
         if(params.format.value === 'PDF'){
@@ -38,6 +40,12 @@ Util = {
             renderDict['viewport'] = {width:params.image.width.value, height: params.image.height.value};
         }
         outDict['renderSettings'] = renderDict;
+        var viewPortGET   = dojo.objectToQuery(renderDict['viewport']);
+        var pdfOptionsGET = dojo.objectToQuery(renderDict['pdfOptions']);
+     console.log(pdfOptionsGET);
+     console.log(viewPortGET);
+     console.log(renderDictGET);
+     console.log(outDictGET);
         var outString = json.stringify(outDict);
         outString = outString.replace(/\"([^(\")"]+)\":/g,"$1:");
         return '?request='+outString;
