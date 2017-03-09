@@ -647,6 +647,7 @@ return declare (ActionBarDialog,{
         currentUrl = currentUrl.replace(/\u0026/g,'%26');
         // encode jsParams
         jsParams['url'] = currentUrl;
+        jsParams['customURL'] = this.params.config.customURL;
         var jsEncode = Util.encodePhantomJSSettings(jsParams);
         // put it all together
         return this.requestUrl + jsEncode;
