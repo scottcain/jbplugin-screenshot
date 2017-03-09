@@ -24,10 +24,17 @@ Util = {
         // params include url, format, height, width, zoom
         // ?request={url:"http://www.highcharts.com/demo/pie-donut",renderType:"jpg",renderSettings:{zoomFactor:2,viewport:{width:100,height:500}}}
         // split parameters into pdf type and image type
+
+     console.log(params);
         var outDict = {url: params.url, renderType: params.format.value};
-        var outDictGET = dojo.objectToQuery(outDict);
+        var outDictGET = dojo.objectToQuery(outDict) +'&delay=16000';
+        outDictGET = outDictGET.replace(/%2526/g, '%26');
+        outDictGET = outDictGET.replace('renderType', 'format');
         var renderDict = {zoomFactor: params.zoom.value, quality: params.quality.value};
         var renderDictGET = dojo.objectToQuery(renderDict);
+        renderDictGET = renderDictGET.replace('Factor', '');
+        var scaledQuality = params.quality.value/100;
+        renderDictGET = renderDictGET.replace(/quality=\d+/, 'quality='+scaledQuality );
         //var outDict = {url: params.url, renderType: params.format.value, renderSettings: {zoomFactor: params.zoom.value, viewport: {width:params.width.value, height: params.height.value}}};
         // check PDF
         if(params.format.value === 'PDF'){
@@ -42,13 +49,17 @@ Util = {
         outDict['renderSettings'] = renderDict;
         var viewPortGET   = dojo.objectToQuery(renderDict['viewport']);
         var pdfOptionsGET = dojo.objectToQuery(renderDict['pdfOptions']);
-     console.log(pdfOptionsGET);
-     console.log(viewPortGET);
-     console.log(renderDictGET);
-     console.log(outDictGET);
         var outString = json.stringify(outDict);
         outString = outString.replace(/\"([^(\")"]+)\":/g,"$1:");
-        return '?request='+outString;
+        var outStringGET = '?'+outDictGET+'&'+viewPortGET+'&'+renderDictGET;
+        if (params.format.value === 'PDF') {
+            pdfOptionsGET = pdfOptionsGET.replace('format', 'paperFormat');
+            pdfOptionsGET = pdfOptionsGET.replace('orientation', 'paperOrientation');
+            outStringGET = outStringGET + '&' + pdfOptionsGET;
+        }
+        console.log(outStringGET);
+        //return '?request='+outString;
+        return outStringGET;
     },
 
     decode: function(inStr, tracks){
