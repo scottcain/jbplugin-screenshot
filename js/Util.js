@@ -45,7 +45,7 @@ Util = {
         outString = outString.replace(/\"([^(\")"]+)\":/g,"$1:");
 
         if (params.customURL !== undefined) {
-            console.log(params.customURL);
+            //console.log(params.customURL);
             outDictGET = outDictGET.replace(/%2526/g, '%26');
             outDictGET = outDictGET.replace('renderType', 'format');
 
@@ -63,10 +63,10 @@ Util = {
                 pdfOptionsGET = pdfOptionsGET.replace('orientation', 'paperOrientation');
                 outStringGET = outStringGET + '&' + pdfOptionsGET;
             }
-            console.log(outStringGET);
+            //console.log(outStringGET);
             return outStringGET;
         }
-        console.log(outString);
+        //console.log(outString);
         return '?request='+outString;
     },
 
