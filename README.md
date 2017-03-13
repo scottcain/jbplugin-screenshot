@@ -65,6 +65,26 @@ Also, the tracklist does not always display well when using PDF output. When sel
 
 **Note:** Due to the nature of URL-encoded screenshots, default track configurations will be used unless overriden by settings selected in this dialog box. Locally added tracks, such as combination tracks, will not be included.
 
+##Alternate PhantomJS Servers
+
+If you would like to avoid using PhantomJSCloud, you can provide a Manet (https://github.com/vbauer/manet) server instance instead.  Manet is an open source software project that provides a web interface to PhantomJS that is similar to (though not as full featured as) PhantomJSCloud.  You can either install Manet from source or via a Docker container (e.g. https://github.com/pdelsante/manet-dockerfile).  If you deploy Manet, you will definitely want to look at the "whitelist" option, that restricts what pages it will make screenshots of (you don't want to make a service available that will allow any page on the internet to be screenshotted!).  After installing and configuring Manet, you only need to provide a "customURL" option in the JBrowse configuration, like this:
+
+For _jbrowse.conf_
+```
+    [plugins.ScreenShotPlugin]
+    location = plugins/ScreenShotPlugin
+    customURL = <insert_api_key>
+```
+For _jbrowse_conf.json_
+```
+    "plugins" : {
+        "ScreenShotPlugin" : { "location" : "plugins/ScreenShotPlugin",
+                            "customURL": "<insert_api_key>" }
+    }
+```
+
+Note that if you supply both ```customURL``` and ```apiKey``` in the configuration, ```apiKey``` will be ignored.
+
 ##Support for Additional Plugins
 ###Methylation Plugin
 This plugin includes support for the [MethylationPlugin](https://github.com/bhofmei/jbplugin-methylation).  
