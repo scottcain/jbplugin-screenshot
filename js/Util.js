@@ -26,8 +26,8 @@ Util = {
         // split parameters into pdf type and image type
 
         var outDict = {url: params.url, renderType: params.format.value};
-        var outDictGET = dojo.objectToQuery(outDict) +'&delay=16000';
-        var renderDict = {zoomFactor: params.zoom.value, quality: params.quality.value};
+        var outDictGET = dojo.objectToQuery(outDict);
+        var renderDict = {zoomFactor: params.zoom.value, quality: params.quality.value, resourceWait:params.delay.value};
         var renderDictGET = dojo.objectToQuery(renderDict);
         //var outDict = {url: params.url, renderType: params.format.value, renderSettings: {zoomFactor: params.zoom.value, viewport: {width:params.width.value, height: params.height.value}}};
         // check PDF
@@ -50,6 +50,7 @@ Util = {
             outDictGET = outDictGET.replace('renderType', 'format');
 
             renderDictGET = renderDictGET.replace('Factor', '');
+            renderDictGET = renderDictGET.replace('resourceWait', 'delay');
             var scaledQuality = params.quality.value/100;
             renderDictGET = renderDictGET.replace(/quality=\d+/, 'quality='+scaledQuality );
 

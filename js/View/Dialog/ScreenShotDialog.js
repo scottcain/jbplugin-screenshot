@@ -562,6 +562,7 @@ return declare (ActionBarDialog,{
         var pdfOpt = {value: 'letter landscape', title: 'Page format'};
         var pdfWidth = {value: 1800, title: 'View width (px)', min:100, max:10000, delta:100};
         var pdfHeight = {value: 1200, title: 'View height (px)', min:100, max:10000, delta:100};
+        var delay  = {value:10000, title:'Render delay (ms)',min:1000,max:30000,delta:1000};
 
         var smrna = {'21': {value: true, color: 'blue', label: '21-mers'},
                      '22': {value: true, color: 'green', label: '22-mers'},
@@ -570,7 +571,7 @@ return declare (ActionBarDialog,{
                      'pi': {value: true, color: 'purple', label: 'piRNAs'},
                      'Others': {value: true, color: 'yellow', label: 'others'}};
 
-       return { view:{trackSpacing: trackSpacing, locOver: locOver, trackList: trackList, nav: nav, menu: menu, labels: labels}, methylation:{CG:true, CHG:true, CHH:true}, output: {format: format, zoom: zoom, quality: quality, image: {width: width, height: height}, pdf: {page: pdfOpt, pdfWidth: pdfWidth, pdfHeight: pdfHeight}}, smallrna: smrna };
+       return { view:{trackSpacing: trackSpacing, locOver: locOver, trackList: trackList, nav: nav, menu: menu, labels: labels}, methylation:{CG:true, CHG:true, CHH:true}, output: {format: format, zoom: zoom, quality: quality, image: {width: width, height: height}, pdf: {page: pdfOpt, pdfWidth: pdfWidth, pdfHeight: pdfHeight}, delay: delay}, smallrna: smrna };
     },
 
     _getTrackParameters: function(){
