@@ -67,7 +67,7 @@ Util = {
             //console.log(outStringGET);
             return outStringGET;
         }
-        //console.log(outString);
+        console.log(outString);
         return '?request='+outString;
     },
 

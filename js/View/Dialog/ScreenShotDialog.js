@@ -162,7 +162,7 @@ return declare (ActionBarDialog,{
         for(param in viewParam){
             var data = viewParam[param];
             var row = dom.create('tr',{id:'screenshot-dialog-row-'+param},table);
-            dom.create('td',{'innerHTML':(param === 'labels' ? '' : data.title),'class':'screenshot-dialog-pane-label'}, row);
+            dom.create('td',{'innerHTML': data.title,'class':'screenshot-dialog-pane-label'}, row);
             var td = dom.create('td',{'class':'screenshot-dialog-pane-input'},row);
             var input;
             if(param === 'trackSpacing'){
@@ -176,15 +176,11 @@ return declare (ActionBarDialog,{
                     style:"width:50px;"
                 });
             }else{
-                if(param === 'labels'){
-                    input = null;
-                }else{
                 input = new dijitCheckBox({
                     id:'screenshot-dialog-opt-box-'+param,
                     '_prop': param,
                     checked: data.value
                 });
-                }
             }
             if(input !== null){
                 input.onClick = lang.hitch(thisB, '_setParameter', input);
@@ -550,7 +546,7 @@ return declare (ActionBarDialog,{
         var trackList = { value: config.show_tracklist, title:'Show track list' };
         var nav = { value: config.show_nav, title:'Show navigation bar' };
         var menu = { value: config.show_menu, title:'Show menu bar' };
-        var labels = {value:true, title:'Show track labels'};
+        var labels = {value:config.show_tracklabels, title:'Show track labels'};
         // output parameters
         zoom['min'] = 0;
         zoom['max'] = 10;
